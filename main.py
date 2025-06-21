@@ -9,3 +9,5 @@ class Paths:
 if not path.isfile(Paths.chatdb):
     open(Paths.chatdb, 'w').close() # creates that file
     print("chat.db created")
+
+db = TinyDB(Paths.chatdb)
