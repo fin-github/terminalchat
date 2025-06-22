@@ -5,7 +5,7 @@ ACCOUNT
     name  = str,
     accid = str,
 
-    pass  = str
+    password  = str
 }
 
 MESSAGE
