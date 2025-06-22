@@ -1,7 +1,17 @@
 # Schema per document
+
 ACCOUNT
+{
+    name  = str,
+    accid = str,
+
+    pass  = str
+}
 
 MESSAGE
 {
-    sender
+    sender  = accid: str, // decided on account creation
+    content = str,
+    msgid   = str         // decided on message send,
+    senton  = unix: int,
 }
