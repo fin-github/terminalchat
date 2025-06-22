@@ -25,3 +25,21 @@ db = TinyDB(Paths.chatdb)
 chatdb_new(db)
 accdb = TinyDB(Paths.accdb)
 accdb_new(accdb)
+
+def login(name: str, password: str):
+    # check if this user even exists
+    if isinstance(accdb.search(Query().name == name), None):
+        print("This User does not exist.")
+        return False
+    
+    print("User Exists")
+    
+    document = accdb.search(Query().name == name)
+    accid, real_password = document["accid"], document["real_password"]
+    
+    if real_password == password:
+        print("Success!")
+        return True
+    else:
+        print("This password is incorrect.")
+        return False
