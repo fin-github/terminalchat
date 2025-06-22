@@ -1,5 +1,7 @@
 from tinydb import TinyDB, Query
 from os import path, curdir
+from string import ascii_letters
+from random import random
 
 cd = path.abspath(curdir)
 class Paths:
@@ -35,7 +37,7 @@ def login(name: str, password: str):
     print("User Exists")
     
     document = accdb.search(Query().name == name)
-    accid, real_password = document["accid"], document["real_password"]
+    accid, real_password = document["accid"], document["password"]
     
     if real_password == password:
         print("Success!")
@@ -43,3 +45,26 @@ def login(name: str, password: str):
     else:
         print("This password is incorrect.")
         return False
+
+def random_acc_id():
+    accid = ""
+    for i in range(6):
+        accid += random(ascii_letters)
+    return accid
+
+def signup(name: str, password: str):
+    if not isinstance(accdb.search(Query().name == name), None):
+        print("This Name is Taken.")
+        return False
+    print("Username is not taken...")
+    
+    if not isinstance(accdb.search(Query().password == name), None):
+        print("This Password is already taken.")
+        return False
+    
+    accdb.insert({"name": name, "accid": random_acc_id(),  # TODO: add check if acc id already exists
+                  "password": password})
+    
+    print("Account Created")
+
+    
